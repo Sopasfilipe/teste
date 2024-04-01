@@ -8,7 +8,7 @@ const port = 3000;
 app.use(bodyParser.json());
 
 const openai = new ChatGPT({
-    apiKey: 'SUA_CHAVE_DE_API_AQUI', // Substitua pela sua chave de API do OpenAI
+    apiKey: process.env.OPENAI_API_KEY, // Use a variável de ambiente para a chave de API do OpenAI
     engine: 'davinci' // Especifique a versão do mecanismo que deseja usar
 });
 
