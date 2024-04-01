@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Demo</title>
+</head>
+<body>
+    <h1>ChatGPT Demo</h1>
+    <div>
+        <label for="userInput">Digite sua mensagem:</label>
+        <input type="text" id="userInput">
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+    <div id="response"></div>
+
+    <script>
+        function sendMessage() {
+            var userInput = document.getElementById("userInput").value;
+            fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("response").innerHTML = "<p><strong>Você:</strong> " + userInput + "</p>" +
+                                                                 "<p><strong>ChatGPT:</strong> " + data.reply + "</p>";
+            })
+            .catch(error => console.error('Erro:', error));
+        }
+    </script>
+</body>
+</html>
