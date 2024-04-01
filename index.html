@@ -17,6 +17,7 @@
     <script>
         function sendMessage() {
             var userInput = document.getElementById("userInput").value;
+            console.log('Enviando mensagem para o servidor:', userInput); // Log do envio da mensagem para o servidor
             fetch('/api/chat', {
                 method: 'POST',
                 headers: {
@@ -24,12 +25,16 @@
                 },
                 body: JSON.stringify({ message: userInput })
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log('Resposta do servidor recebida:', response); // Log da resposta do servidor recebida
+                return response.json();
+            })
             .then(data => {
+                console.log('Dados recebidos do servidor:', data); // Log dos dados recebidos do servidor
                 document.getElementById("response").innerHTML = "<p><strong>Você:</strong> " + userInput + "</p>" +
                                                                  "<p><strong>ChatGPT:</strong> " + data.reply + "</p>";
             })
-            .catch(error => console.error('Erro:', error));
+            .catch(error => console.error('Erro:', error)); // Log de erro, se houver
         }
     </script>
 </body>
